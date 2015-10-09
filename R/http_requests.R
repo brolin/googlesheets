@@ -15,9 +15,9 @@
 #' @keywords internal
 gsheets_GET <-
   function(url, to_xml = TRUE, use_auth = !grepl("public", url), ...) {
-      print(use_auth)
   if(use_auth) {
-    req <- httr::GET(url, get_google_token(), ...)
+      req <- httr::GET(url, get_google_token(), ...)
+      print(req)
   } else {
     req <- httr::GET(url, ...)
   }
