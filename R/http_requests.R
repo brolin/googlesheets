@@ -15,10 +15,8 @@
 #' @keywords internal
 gsheets_GET <-
   function(url, to_xml = TRUE, use_auth = !grepl("public", url), ...) {
-      req <- list()
       if(use_auth) {
       req <- httr::GET(url, get_google_token(), ...)
-      req$headers$`content-type` <- "application/atom+xml"
   } else {
     req <- httr::GET(url, ...)
   }
@@ -27,7 +25,7 @@ gsheets_GET <-
   ## ws_feed for a non-existent spreadsheet will trigger "client error: (400)
   ## Bad Request" ... can we confidently say what the problem is?
 
-  ok_content_types <- c("application/atom+xml; charset=UTF-8", "text/csv")
+  ok_content_types <- c("application/atom+xml; charset=UTF-8", "text/csv","")
 
   if(!(req$headers$`content-type` %in% ok_content_types)) {
       print(req)
