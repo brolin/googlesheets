@@ -53,7 +53,8 @@ gs_read_csv <- function(ss, ws = 1, ..., verbose = TRUE) {
 
   req <- gsheets_GET(this_ws$exportcsv, to_xml = FALSE,
                      use_auth = !ss$is_public)
-  sprintf("request: %s", req)
+
+  print(req)
 
   if(req$headers$`content-type` != "text/csv") {
     stop1 <- "Cannot access this sheet via csv."
