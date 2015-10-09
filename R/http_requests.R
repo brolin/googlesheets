@@ -18,6 +18,7 @@ gsheets_GET <-
   if(use_auth) {
       req <- httr::GET(url, get_google_token(), ...)
       print(req)
+      print(req$headers$`content-type`)
   } else {
     req <- httr::GET(url, ...)
   }
