@@ -15,10 +15,10 @@
 #' @keywords internal
 gsheets_GET <-
   function(url, to_xml = TRUE, use_auth = !grepl("public", url), ...) {
-  if(use_auth) {
+      req <- list()
+      if(use_auth) {
       req <- httr::GET(url, get_google_token(), ...)
-      print(req)
-      print(req$headers$`content-type`)
+      req$headers$`content-type` <- "application/atom+xml"
   } else {
     req <- httr::GET(url, ...)
   }
@@ -28,7 +28,9 @@ gsheets_GET <-
   ## Bad Request" ... can we confidently say what the problem is?
 
   ok_content_types <- c("application/atom+xml; charset=UTF-8", "text/csv")
+
   if(!(req$headers$`content-type` %in% ok_content_types)) {
+      print(req)
     stop(sprintf(paste("Not expecting content-type to be:\n%s"),
                  req$headers[["content-type"]]))
     # usually when the content-type is unexpectedly binary, it means we need to
